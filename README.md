@@ -1,44 +1,54 @@
-# HOCON Language Support
+# HOCON Support
 
-Language support for HOCON files in VS Code.
+VS Code extension for HOCON files.
 
-## Features
+## Current Features
 
-- Language identification for `.conf` and `.hocon` files
-- TextMate syntax highlighting for core HOCON constructs:
-  - comments (`#` and `//`)
-  - strings
-  - numbers
-  - booleans and `null`
-  - substitutions (`${...}` and `${?...}`)
-  - assignment operators (`:`, `=`, `+=`)
-  - keys and `include`
-- Document formatter for HOCON via VS Code API (`Format Document`)
+- Recognizes `.conf` and `.hocon` files as HOCON.
+- Provides basic/improved syntax highlighting via TextMate grammar.
+- Supports `Format Document` with a built-in MVP formatter.
 
-## Formatter Behavior
+## Syntax Highlighting
 
-Current formatter is intentionally minimal:
+The current grammar covers core constructs:
 
-- normalizes indentation based on braces/brackets
-- normalizes spaces around `:`, `=`, and `+=`
-- preserves comment-only lines
-- does not modify string contents
+- comments: `#`, `//`
+- strings
+- numbers
+- booleans
+- `null`
+- substitutions: `${...}`, `${?...}`
+- operators: `:`, `=`, `+=`
+- `include`
+- unquoted/quoted keys
 
-## Project Scope
+## Formatter (MVP)
 
-This extension currently provides:
+The formatter is intentionally practical and minimal:
 
-- language registration
-- basic highlighting grammar
-- basic document formatting
+- normalizes indentation for nested `{}` and `[]`
+- correctly decreases indentation on lines with `}` and `]`
+- normalizes spaces around `:`, `=`, `+=`
+- preserves comments
+- does not modify quoted string contents
 
-It intentionally does not include a language server at this stage.
+## Formatter Limitations
 
-## Development
+- This is not an AST/parser-based formatter; it uses line-based heuristics.
+- For complex, unusual, or partially invalid HOCON, formatting can be imperfect.
+- Multiline triple-quoted blocks are intentionally not reformatted internally.
 
-- Run watch mode: `npm run watch`
-- Build once: `npm run compile`
-- Lint sources: `npm run lint`
-- Format repository: `npm run format`
+## Development Mode
 
-Then press `F5` in VS Code to start the Extension Development Host.
+1. Install dependencies: `npm install`
+2. Start watch build: `npm run watch`
+3. Press `F5` in VS Code
+4. In Extension Development Host, open any `.conf`/`.hocon` file
+5. Run `Format Document` to verify formatter behavior
+
+## Useful Commands
+
+- `npm run compile`
+- `npm run watch`
+- `npm run lint`
+- `npm run format`

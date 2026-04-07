@@ -1,8 +1,10 @@
 {
   "name": "hocon-language-support",
-  "displayName": "HOCON Language Support",
-  "description": "Language support for HOCON in VS Code: syntax highlighting and document formatting.",
+  "displayName": "HOCON Support",
+  "description": "Syntax highlighting and document formatting for HOCON (.conf, .hocon) in VS Code.",
   "version": "0.0.1",
+  "license": "MIT",
+  "icon": "media/icon.png",
   "engines": {
     "vscode": "^1.110.0"
   },
@@ -48,6 +50,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint src"
   },
   "devDependencies": {

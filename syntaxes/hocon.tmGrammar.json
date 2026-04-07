@@ -22,10 +22,10 @@
       "include": "#numbers"
     },
     {
-      "include": "#operators"
+      "include": "#keys"
     },
     {
-      "include": "#keys"
+      "include": "#operators"
     }
   ],
   "repository": {
@@ -37,7 +37,7 @@
         },
         {
           "name": "comment.line.double-slash.hocon",
-          "match": "//.*$"
+          "match": "(?<!:)//.*$"
         }
       ]
     },
@@ -125,20 +125,32 @@
     "keys": {
       "patterns": [
         {
-          "name": "entity.name.tag.hocon",
-          "match": "^\\s*[A-Za-z_][A-Za-z0-9_.-]*(?=\\s*(?:\\+=|:|=))"
+          "match": "(^|[\\{\\[,\\s])([A-Za-z_][A-Za-z0-9_.-]*)(?=\\s*(?:\\+=|:|=))",
+          "captures": {
+            "2": {
+              "name": "entity.name.tag.hocon"
+            }
+          }
         },
         {
-          "name": "entity.name.tag.hocon",
-          "match": "^\\s*\"[^\"\\n]+\"(?=\\s*(?:\\+=|:|=))"
+          "match": "(^|[\\{\\[,\\s])(\"(?:\\\\.|[^\"\\\\])*\")(?=\\s*(?:\\+=|:|=))",
+          "captures": {
+            "2": {
+              "name": "entity.name.tag.hocon"
+            }
+          }
         }
       ]
     },
     "includeKeyword": {
       "patterns": [
         {
-          "name": "keyword.control.import.include.hocon",
-          "match": "(?<!\\w)include(?!\\w)"
+          "match": "(^\\s*)(include)(?=\\s+)",
+          "captures": {
+            "2": {
+              "name": "keyword.control.import.include.hocon"
+            }
+          }
         }
       ]
     }
