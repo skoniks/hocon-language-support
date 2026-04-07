@@ -1,7 +1,5 @@
 import * as vscode from 'vscode';
 
-const INDENT = '  ';
-
 interface LineSplit {
   code: string;
   comment: string;
@@ -94,12 +92,30 @@ function splitCodeAndComment(line: string): LineSplit {
   };
 }
 
-function findAssignmentOperator(
-  code: string
-): { index: number; length: number } | undefined {
+function trimTrailingSpaces(output: string[]): void {
+  while (output.length > 0 && output[output.length - 1] === ' ') {
+    output.pop();
+  }
+}
+
+function ensureSpaceBeforeToken(output: string[]): void {
+  trimTrailingSpaces(output);
+
+  if (output.length === 0) {
+    return;
+  }
+
+  const previous = output[output.length - 1];
+  if (previous !== ' ' && previous !== '[' && previous !== '{') {
+    output.push(' ');
+  }
+}
+
+function hasInlineObject(code: string): boolean {
   let inString = false;
   let escaped = false;
   let substitutionDepth = 0;
+  let seenOpen = false;
 
   for (let i = 0; i < code.length; i++) {
     const ch = code[i];
@@ -144,33 +160,17 @@ function findAssignmentOperator(
       continue;
     }
 
-    if (ch === '+' && next === '=') {
-      return {
-        index: i,
-        length: 2,
-      };
+    if (ch === '{') {
+      seenOpen = true;
+      continue;
     }
 
-    if (ch === '=') {
-      return {
-        index: i,
-        length: 1,
-      };
-    }
-
-    if (ch === ':') {
-      if (next === '/' && i + 2 < code.length && code[i + 2] === '/') {
-        continue;
-      }
-
-      return {
-        index: i,
-        length: 1,
-      };
+    if (ch === '}' && seenOpen) {
+      return true;
     }
   }
 
-  return undefined;
+  return false;
 }
 
 function formatCode(code: string): string {
@@ -180,22 +180,177 @@ function formatCode(code: string): string {
     return '';
   }
 
-  const assignmentOperator = findAssignmentOperator(trimmed);
+  const output: string[] = [];
+  const inlineObject = hasInlineObject(trimmed);
+  let inString = false;
+  let escaped = false;
+  let substitutionDepth = 0;
+  let pendingSpace = false;
 
-  if (!assignmentOperator) {
-    return trimmed;
+  for (let i = 0; i < trimmed.length; i++) {
+    const ch = trimmed[i];
+    const next = i + 1 < trimmed.length ? trimmed[i + 1] : '';
+
+    if (inString) {
+      output.push(ch);
+
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+
+      if (ch === '\\') {
+        escaped = true;
+        continue;
+      }
+
+      if (ch === '"') {
+        inString = false;
+      }
+
+      continue;
+    }
+
+    if (substitutionDepth > 0) {
+      output.push(ch);
+
+      if (ch === '{') {
+        substitutionDepth++;
+      } else if (ch === '}') {
+        substitutionDepth = Math.max(0, substitutionDepth - 1);
+      }
+
+      continue;
+    }
+
+    if (/\s/.test(ch)) {
+      pendingSpace = true;
+      continue;
+    }
+
+    if (ch === '"') {
+      if (pendingSpace && output.length > 0 && output[output.length - 1] !== ' ') {
+        output.push(' ');
+      }
+
+      output.push(ch);
+      inString = true;
+      pendingSpace = false;
+      continue;
+    }
+
+    if (ch === '$' && next === '{') {
+      if (pendingSpace && output.length > 0 && output[output.length - 1] !== ' ') {
+        output.push(' ');
+      }
+
+      output.push('$', '{');
+      substitutionDepth = 1;
+      pendingSpace = false;
+      i++;
+      continue;
+    }
+
+    if (ch === '+' && next === '=') {
+      ensureSpaceBeforeToken(output);
+      output.push('+', '=');
+      pendingSpace = true;
+      i++;
+      continue;
+    }
+
+    if (ch === '=') {
+      ensureSpaceBeforeToken(output);
+      output.push('=');
+      pendingSpace = true;
+      continue;
+    }
+
+    if (ch === ':') {
+      if (next === '/' && i + 2 < trimmed.length && trimmed[i + 2] === '/') {
+        output.push(':');
+        pendingSpace = false;
+        continue;
+      }
+
+      ensureSpaceBeforeToken(output);
+      output.push(':');
+      pendingSpace = true;
+      continue;
+    }
+
+    if (ch === ',') {
+      trimTrailingSpaces(output);
+      output.push(',');
+      pendingSpace = true;
+      continue;
+    }
+
+    if (ch === '{') {
+      trimTrailingSpaces(output);
+
+      if (pendingSpace && output.length > 0 && output[output.length - 1] !== ' ') {
+        output.push(' ');
+      }
+
+      if (
+        output.length > 0 &&
+        /[A-Za-z0-9_"'\)\]\}]/.test(output[output.length - 1])
+      ) {
+        output.push(' ');
+      }
+
+      output.push('{');
+
+      if (inlineObject) {
+        output.push(' ');
+      }
+
+      pendingSpace = false;
+      continue;
+    }
+
+    if (ch === '}') {
+      trimTrailingSpaces(output);
+
+      if (inlineObject && output.length > 0 && output[output.length - 1] !== '{') {
+        output.push(' ');
+      }
+
+      output.push('}');
+      pendingSpace = false;
+      continue;
+    }
+
+    if (ch === '[') {
+      trimTrailingSpaces(output);
+
+      if (pendingSpace && output.length > 0 && output[output.length - 1] !== ' ') {
+        output.push(' ');
+      }
+
+      output.push(ch);
+      pendingSpace = false;
+      continue;
+    }
+
+    if (ch === ']') {
+      trimTrailingSpaces(output);
+      output.push(ch);
+      pendingSpace = false;
+      continue;
+    }
+
+    if (pendingSpace && output.length > 0 && output[output.length - 1] !== ' ') {
+      output.push(' ');
+    }
+
+    output.push(ch);
+    pendingSpace = false;
   }
 
-  const left = trimmed.slice(0, assignmentOperator.index).trimEnd();
-  const operator = trimmed.slice(
-    assignmentOperator.index,
-    assignmentOperator.index + assignmentOperator.length
-  );
-  const right = trimmed
-    .slice(assignmentOperator.index + assignmentOperator.length)
-    .trimStart();
-
-  return `${left} ${operator} ${right}`.trimEnd();
+  trimTrailingSpaces(output);
+  return output.join('');
 }
 
 function countLeadingClosers(code: string): number {
@@ -272,8 +427,21 @@ function calculateIndentDelta(code: string): number {
   return delta;
 }
 
-export function formatHoconText(document: vscode.TextDocument): string {
+function getIndentUnit(options: vscode.FormattingOptions): string {
+  if (!options.insertSpaces) {
+    return '\t';
+  }
+
+  const size = Math.max(1, Math.floor(options.tabSize));
+  return ' '.repeat(size);
+}
+
+export function formatHoconText(
+  document: vscode.TextDocument,
+  options: vscode.FormattingOptions
+): string {
   const eol = document.eol === vscode.EndOfLine.CRLF ? '\r\n' : '\n';
+  const indentUnit = getIndentUnit(options);
   const formattedLines: string[] = [];
   let indentLevel = 0;
   let inMultilineString = false;
@@ -324,7 +492,7 @@ export function formatHoconText(document: vscode.TextDocument): string {
     const leadingClosers = countLeadingClosers(trimmedCode);
     const currentIndent = Math.max(0, indentLevel - leadingClosers);
     const normalizedCode = formatCode(trimmedCode);
-    const prefix = INDENT.repeat(currentIndent);
+    const prefix = indentUnit.repeat(currentIndent);
     const normalizedComment = comment.trimStart();
 
     formattedLines.push(
@@ -340,10 +508,11 @@ export function formatHoconText(document: vscode.TextDocument): string {
 }
 
 export function provideHoconDocumentFormattingEdits(
-  document: vscode.TextDocument
+  document: vscode.TextDocument,
+  options: vscode.FormattingOptions
 ): vscode.TextEdit[] {
   const originalText = document.getText();
-  const formattedText = formatHoconText(document);
+  const formattedText = formatHoconText(document, options);
 
   if (formattedText === originalText) {
     return [];
