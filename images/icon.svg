@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;">
+    <g transform="matrix(1.25,0,0,1.282051,-16,-11.641026)">
+        <g transform="matrix(1.28,0,0,1.28,-17.92,-16.52)">
+            <clipPath id="_clip1">
+                <path d="M104,26.094L104,91.906C104,95.269 101.199,98 97.75,98L30.25,98C26.801,98 24,95.269 24,91.906L24,26.094C24,22.731 26.801,20 30.25,20L97.75,20C101.199,20 104,22.731 104,26.094Z"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <g transform="matrix(0.625,-0,-0,0.609375,24,20)">
+                    <use xlink:href="#_Image2" x="0" y="0" width="128px" height="128px"/>
+                </g>
+            </g>
+        </g>
+        <g transform="matrix(1.28,0,0,1.28,-17.92,-16.52)">
+            <path d="M103.3,26.367L103.3,91.633C103.3,94.761 100.696,97.3 97.488,97.3L30.512,97.3C27.304,97.3 24.7,94.761 24.7,91.633L24.7,26.367C24.7,23.239 27.304,20.7 30.512,20.7L97.488,20.7C100.696,20.7 103.3,23.239 103.3,26.367Z" style="fill:none;stroke:rgb(10,13,18);stroke-opacity:0.95;stroke-width:1.4px;"/>
+        </g>
+    </g>
+    <g transform="matrix(1.28,0,0,1.28,-17.92,-14.72)">
+        <path d="M46,26C39,26 36,30 36,37L36,50C36,55 33,59 28,61.5C33,64 36,68 36,73L36,86C36,93 39,97 46,97" style="fill:none;fill-rule:nonzero;stroke:rgb(248,248,248);stroke-width:5.5px;stroke-linecap:round;stroke-linejoin:round;"/>
+    </g>
+    <g transform="matrix(1.035897,0,0,1.035897,-2.238462,1.444615)">
+        <g transform="matrix(1.28,0,0,1.28,-17.904059,-16.908535)">
+            <path d="M93,37.603L93,41.897C93,42.23 92.73,42.5 92.397,42.5L54.603,42.5C54.27,42.5 54,42.23 54,41.897L54,37.603C54,37.27 54.27,37 54.603,37L92.397,37C92.73,37 93,37.27 93,37.603Z" style="fill:rgb(230,230,230);"/>
+        </g>
+        <g transform="matrix(1.28,0,0,1.28,-17.904059,-16.908535)">
+            <path d="M86,47.603L86,51.197C86,51.53 85.73,51.8 85.397,51.8L54.603,51.8C54.27,51.8 54,51.53 54,51.197L54,47.603C54,47.27 54.27,47 54.603,47L85.397,47C85.73,47 86,47.27 86,47.603Z" style="fill:rgb(89,216,43);"/>
+        </g>
+        <g transform="matrix(1.28,0,0,1.28,-17.904059,-16.908535)">
+            <path d="M78,56.603L78,60.197C78,60.53 77.73,60.8 77.397,60.8L54.603,60.8C54.27,60.8 54,60.53 54,60.197L54,56.603C54,56.27 54.27,56 54.603,56L77.397,56C77.73,56 78,56.27 78,56.603Z" style="fill:rgb(39,168,255);"/>
+        </g>
+    </g>
+    <g transform="matrix(1,0,0,1,1.4,0)">
+        <g transform="matrix(1.28,0,0,1.28,-17.528,-17.92)">
+            <circle cx="58" cy="81" r="5.7" style="fill:rgb(255,226,58);"/>
+        </g>
+        <g transform="matrix(1.28,0,0,1.28,-17.528,-17.92)">
+            <circle cx="72.5" cy="81" r="5.7" style="fill:rgb(255,58,55);"/>
+        </g>
+        <g transform="matrix(1.28,0,0,1.28,-17.528,-17.92)">
+            <circle cx="87" cy="81" r="5.7" style="fill:rgb(44,169,255);"/>
+        </g>
+    </g>
+    <defs>
+        <image id="_Image2" width="128px" height="128px" xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACAAIADAREAAhEBAxEB/8QAGQABAQEBAQEAAAAAAAAAAAAAAgEGAwUI/8QAFhABAQEAAAAAAAAAAAAAAAAAAQAC/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAECA//EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APn9bs5AsA0wDTAFgCwBYAsAWALAFgCwDTAFgCwBYNXpgCwBYAsAWDmsAWALAFgGmALAFgCwBYAsBWDVLAFgCwBYAsAWAaYAsA0wBYAsHNYCsHNYCsEg1CwBYAsAWAaYBpgCwBYAsAWALAFgCwBYJBGDTLANMAWALAFgCwBYAsAWALAFgGmArAYIsEYNKsAWALAFgCwBYOawDTANMAWALAVgMEWCMBWK0ixAWALAFgGmALANMAWALAFgCwFgjBGArFRg0SxA0wBYBpgCwBYAsAWALAFgLBGCQRYCxRWDRaYjmsAWALAFgCwBYAsAWCMBWCQRYCsVFgLFaBYyCwBYAsAWDmsB0wBYCsEYDBFgKxUWAxUYPeWMgsAWAaYBpgCwBYCsEgMEWArFRYCxUYIsHuaYyCwDTAFgCwBYCsEgkBWCMUVgLFRgjBIPbWMgsHNYAsAWArBIJAVgjFFYIxRWCMEgNB7S1ZBYAsAWALBIIwRgKxRWCMUVgjBIIwFoPYWrILANMBWAwRYIwFYqLAWKLBIJBFgjQGD1lqyCwFYDBGCLAViowFYIxRgkEWCNBIDB/9k="/>
+    </defs>
+</svg>
