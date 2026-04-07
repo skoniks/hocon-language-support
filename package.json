@@ -1,21 +1,45 @@
 {
   "name": "hocon-language-support",
-  "displayName": "hocon-language-support",
-  "description": "Syntax highlighting and formatting for HOCON",
+  "displayName": "HOCON Language Support",
+  "description": "Language support for HOCON in VS Code: syntax highlighting and document formatting.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.110.0"
   },
-  "categories": [
-    "Other"
+  "keywords": [
+    "hocon",
+    "typesafe-config",
+    "config",
+    "lightbend",
+    "conf",
+    "syntax-highlighting",
+    "formatter"
   ],
-  "activationEvents": [],
+  "categories": [
+    "Programming Languages",
+    "Formatters"
+  ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "languages": [
       {
-        "command": "hocon-language-support.helloWorld",
-        "title": "Hello World"
+        "id": "hocon",
+        "aliases": [
+          "HOCON",
+          "hocon"
+        ],
+        "extensions": [
+          ".conf",
+          ".hocon"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "hocon",
+        "scopeName": "source.hocon",
+        "path": "./syntaxes/hocon.tmGrammar.json"
       }
     ]
   },
@@ -23,18 +47,15 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
+    "format": "prettier --write .",
+    "lint": "eslint src"
   },
   "devDependencies": {
+    "@types/node": "^22.19.17",
     "@types/vscode": "^1.110.0",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "22.x",
-    "typescript-eslint": "^8.56.1",
-    "eslint": "^9.39.3",
+    "eslint": "^9.39.4",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3",
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2"
+    "typescript-eslint": "^8.58.0"
   }
 }
