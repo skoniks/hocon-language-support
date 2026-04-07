@@ -229,7 +229,11 @@ function formatCode(code: string): string {
     }
 
     if (ch === '"') {
-      if (pendingSpace && output.length > 0 && output[output.length - 1] !== ' ') {
+      if (
+        pendingSpace &&
+        output.length > 0 &&
+        output[output.length - 1] !== ' '
+      ) {
         output.push(' ');
       }
 
@@ -240,7 +244,11 @@ function formatCode(code: string): string {
     }
 
     if (ch === '$' && next === '{') {
-      if (pendingSpace && output.length > 0 && output[output.length - 1] !== ' ') {
+      if (
+        pendingSpace &&
+        output.length > 0 &&
+        output[output.length - 1] !== ' '
+      ) {
         output.push(' ');
       }
 
@@ -289,7 +297,11 @@ function formatCode(code: string): string {
     if (ch === '{') {
       trimTrailingSpaces(output);
 
-      if (pendingSpace && output.length > 0 && output[output.length - 1] !== ' ') {
+      if (
+        pendingSpace &&
+        output.length > 0 &&
+        output[output.length - 1] !== ' '
+      ) {
         output.push(' ');
       }
 
@@ -313,7 +325,11 @@ function formatCode(code: string): string {
     if (ch === '}') {
       trimTrailingSpaces(output);
 
-      if (inlineObject && output.length > 0 && output[output.length - 1] !== '{') {
+      if (
+        inlineObject &&
+        output.length > 0 &&
+        output[output.length - 1] !== '{'
+      ) {
         output.push(' ');
       }
 
@@ -325,7 +341,11 @@ function formatCode(code: string): string {
     if (ch === '[') {
       trimTrailingSpaces(output);
 
-      if (pendingSpace && output.length > 0 && output[output.length - 1] !== ' ') {
+      if (
+        pendingSpace &&
+        output.length > 0 &&
+        output[output.length - 1] !== ' '
+      ) {
         output.push(' ');
       }
 
@@ -341,7 +361,11 @@ function formatCode(code: string): string {
       continue;
     }
 
-    if (pendingSpace && output.length > 0 && output[output.length - 1] !== ' ') {
+    if (
+      pendingSpace &&
+      output.length > 0 &&
+      output[output.length - 1] !== ' '
+    ) {
       output.push(' ');
     }
 

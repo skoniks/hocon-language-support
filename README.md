@@ -67,3 +67,33 @@ The formatter is intentionally practical and minimal:
 - `npm run watch`
 - `npm run format`
 - `npm run lint`
+
+## TODO
+
+### Editor experience
+
+- Add HOCON snippets for common object, array, include, and substitution patterns.
+- Add range formatting support for selected blocks.
+- Improve formatter edge-case handling for inline arrays, comments, and mixed spacing.
+
+### Language features
+
+- Add hover help for core HOCON syntax constructs and operators.
+- Add completion for common HOCON keywords and patterns.
+- Improve handling of comments, includes, arrays, plus-equals assignments, and substitutions in formatting logic.
+
+### Navigation
+
+- Add document symbols support for keys and nested sections in the Outline view.
+- Add clickable include paths for local files.
+- Add go to definition for substitutions when the target key exists in the workspace or current file.
+
+### Validation
+
+- Add diagnostics for common syntax problems such as unbalanced brackets and broken substitutions.
+- Add basic structural validation for malformed key-value lines and invalid include usage.
+
+### HOCON-specific improvements
+
+- Improve support for include variants such as required(file(...)).
+- Improve behavior for HOCON merge semantics and plus-equals updates in formatter and language features.
