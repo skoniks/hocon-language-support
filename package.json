@@ -56,9 +56,9 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "prebuild": "npm run compile",
+    "vscode:publish": "vsce publish",
+    "vscode:build": "vsce package",
     "compile": "tsc -p ./",
-    "build": "vsce package",
     "watch": "tsc -watch -p ./",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

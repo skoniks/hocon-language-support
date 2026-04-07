@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { hoconFoldingRangeProvider } from './folding.js';
 import { provideHoconDocumentFormattingEdits } from './formatter.js';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -14,7 +15,13 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  const foldingProvider = vscode.languages.registerFoldingRangeProvider(
+    'hocon',
+    hoconFoldingRangeProvider
+  );
+
   context.subscriptions.push(formatter);
+  context.subscriptions.push(foldingProvider);
 }
 
 export function deactivate() {}
