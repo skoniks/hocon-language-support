@@ -6,5 +6,8 @@
   "search.exclude": {
     "out": true // set this to false to include "out" folder in search results
   },
-  "js/ts.tsdk.path": "node_modules/typescript/lib"
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "chat.tools.terminal.autoApprove": {
+    "npx prettier": true
+  }
 }

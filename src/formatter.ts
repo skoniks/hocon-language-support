@@ -465,13 +465,22 @@ export function formatHoconText(
   options: vscode.FormattingOptions
 ): string {
   const eol = document.eol === vscode.EndOfLine.CRLF ? '\r\n' : '\n';
+  return formatHoconSource(document.getText(), eol, options);
+}
+
+export function formatHoconSource(
+  source: string,
+  eol: string,
+  options: vscode.FormattingOptions
+): string {
   const indentUnit = getIndentUnit(options);
+  const inputLines = source.split(/\r?\n/);
   const formattedLines: string[] = [];
   let indentLevel = 0;
   let inMultilineString = false;
 
-  for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
-    const originalLine = document.lineAt(lineIndex).text;
+  for (let lineIndex = 0; lineIndex < inputLines.length; lineIndex++) {
+    const originalLine = inputLines[lineIndex];
     const trimmedStart = originalLine.trimStart();
 
     if (inMultilineString) {
