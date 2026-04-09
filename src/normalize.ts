@@ -71,6 +71,7 @@ function normalizeHoconSource(
   let escaped = false;
   let inMultilineString = false;
   let substitutionDepth = 0;
+  let sourceLineHasContent = false;
 
   const top = (): ContainerContext | undefined => stack[stack.length - 1];
 
@@ -152,6 +153,7 @@ function normalizeHoconSource(
 
     if (inMultilineString) {
       appendText(ch);
+      sourceLineHasContent = true;
 
       if (ch === '"' && next === '"' && third === '"') {
         appendText('""');
@@ -164,6 +166,7 @@ function normalizeHoconSource(
 
     if (inString) {
       appendText(ch);
+      sourceLineHasContent = true;
 
       if (escaped) {
         escaped = false;
@@ -185,6 +188,7 @@ function normalizeHoconSource(
     if (substitutionDepth > 0) {
       beginValue();
       appendText(ch);
+      sourceLineHasContent = true;
 
       if (ch === '{') {
         substitutionDepth++;
@@ -200,7 +204,15 @@ function normalizeHoconSource(
     }
 
     if (ch === '\n') {
-      pushCurrentLine();
+      const hasCurrentOutput = trimRight(current).length > 0;
+
+      if (hasCurrentOutput) {
+        pushCurrentLine();
+      } else if (!sourceLineHasContent) {
+        pushCurrentLine(true);
+      }
+
+      sourceLineHasContent = false;
       continue;
     }
 
@@ -208,6 +220,8 @@ function normalizeHoconSource(
       pendingSpace = true;
       continue;
     }
+
+    sourceLineHasContent = true;
 
     if (ch === '#') {
       const newlineIndex = source.indexOf('\n', i);

@@ -4,7 +4,7 @@
   "description": "Formatting and syntax highlighting for HOCON (.conf, .hocon) in VS Code.",
   "publisher": "skoniks",
   "author": "skoniks",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "engines": {
     "vscode": "^1.110.0"

@@ -6,6 +6,12 @@ All notable changes to this extension are documented in this file.
 
 - No changes yet.
 
+## [0.0.3]
+
+- Improved `HOCON: Normalize Document` empty-line handling:
+  - preserves blank lines that already exist in the source document
+  - avoids introducing extra blank lines during normalization
+
 ## [0.0.2]
 
 - Added folding support for HOCON objects and arrays (`{}` and `[]`), including Fold Level workflows.
